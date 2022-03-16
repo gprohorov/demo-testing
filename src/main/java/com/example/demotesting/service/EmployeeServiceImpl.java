@@ -60,9 +60,9 @@ public class EmployeeServiceImpl {
     public Employee create(Employee employee){
 
        if(employee.getName().equals("")){
-           throw new IllegalStateException("Name  is required");
+           return null;
+          // throw new IllegalStateException("Name  is required");
        }else {
-
            employee.setCreatedAt(LocalDateTime.now());
            return repository.save(employee);
        }
