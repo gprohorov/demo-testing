@@ -20,8 +20,16 @@ import java.util.List;
 
 @Service
 public class EmployeeServiceImpl {
+
+
+    final private EmployeeMongoRepository repository;
+
     @Autowired
-    EmployeeMongoRepository repository;
+    public EmployeeServiceImpl(EmployeeMongoRepository repository) {
+        this.repository = repository;
+    }
+
+
 
     private List<Employee> list = new ArrayList<>(
             Arrays.asList(
@@ -32,7 +40,7 @@ public class EmployeeServiceImpl {
             )
     );
 
- //   @PostConstruct
+    @PostConstruct
     void init(){
         repository.saveAll(list);
     }
@@ -50,8 +58,14 @@ public class EmployeeServiceImpl {
     }
 
     public Employee create(Employee employee){
-        employee.setCreatedAt(LocalDateTime.now());
-        return repository.save(employee);
+
+       if(employee.getName().equals("")){
+           throw new IllegalStateException("Name  is required");
+       }else {
+
+           employee.setCreatedAt(LocalDateTime.now());
+           return repository.save(employee);
+       }
     }
 
     public Employee update(Employee employee){

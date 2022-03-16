@@ -4,6 +4,9 @@ import com.example.demotesting.model.Employee;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
 /*
   @author   george
   @project   demo-testing
@@ -13,4 +16,5 @@ import org.springframework.stereotype.Repository;
 */
 @Repository
 public interface EmployeeMongoRepository extends MongoRepository<Employee, String> {
+    List<Employee> findAllByTeam(String team);
 }
